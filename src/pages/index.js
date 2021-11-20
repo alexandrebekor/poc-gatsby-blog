@@ -3,7 +3,10 @@ import { graphql, useStaticQuery, Link } from 'gatsby'
 
 const QUERY = graphql`
     query {
-        posts: allMarkdownRemark {
+        posts: allMarkdownRemark(
+            sort: {fields: frontmatter___date}
+            filter: {frontmatter: {status: {eq: "Ok"}}}
+        ) {
             edges {
                 node {
                     frontmatter {

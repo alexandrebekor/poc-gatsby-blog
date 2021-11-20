@@ -17,7 +17,8 @@ exports.createPages = async ({ graphql, actions }) => {
                     parent {
                         ... on File {
                             name
-                        }
+                        },
+                        id
                     }
                 }
             }
@@ -25,12 +26,11 @@ exports.createPages = async ({ graphql, actions }) => {
     }`)
 
     allPosts.data.posts.edges.forEach(post => {
-        console.log(post)
         createPage({
             path: `/blog/${post.node.parent.name}`,
             component: path.resolve(`./src/templates/post.js`),
             context: {
-                id: post.node.parent.name
+                id: post.node.parent.id
             }
         })
     })
